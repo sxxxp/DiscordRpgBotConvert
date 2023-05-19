@@ -1,0 +1,149 @@
+body {
+  text-align: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+$mobile-contents-width: 640px;
+@mixin scale($property, $px) {
+  $w: calc(1px / $mobile-contents-width * 100);
+
+  $pxs: null;
+  $vws: null;
+  @each $v in $px {
+    @if type-of($v) == number {
+      $px: calc($v / 1px);
+      $pxs: append($pxs, if($px == 0, 0, $px + px));
+      $vw: $px * $w;
+      $vws: append($vws, if($vw == 0, 0, $vw + vw));
+    } @else {
+      $pxs: append($pxs, $v);
+      $vws: append($vws, $v);
+    }
+  }
+  #{$property}: $pxs;
+  @media (max-width: $mobile-contents-width) {
+    #{$property}: $vws;
+  }
+}
+
+:root {
+  @include scale(font-size, 16px);
+}
+
+ul {
+  display: flex;
+  padding-left: 0;
+  @include scale(margin, 16px 0px);
+  font-weight: bold;
+  width: 100%;
+  justify-content: space-between;
+}
+
+li {
+  display: inline;
+  width: 30%;
+}
+
+a {
+  text-decoration: none;
+  color: gray;
+  padding: 0% 10%;
+  @include scale(font-size, 24px);
+}
+
+a:hover {
+  font-weight: bold;
+  color: navy;
+}
+
+a.active {
+  color: black;
+}
+
+input {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  @include scale(font-size, 24px);
+  margin-bottom: 4%;
+  border-radius: 3rem;
+  @include scale(padding, 18px);
+  font-weight: bold;
+}
+
+input[type="submit"] {
+  background-color: black;
+  color: white;
+}
+
+input:focus {
+  border: solid 2px orange;
+}
+
+.head {
+  @include scale(font-size, 48px);
+  @include scale(margin, 48px 0px);
+  font-weight: bold;
+}
+
+.chat-bar {
+  position: fixed;
+  right: 1px;
+  bottom: 1px;
+  @include scale(font-size, 24px);
+  font-weight: bold;
+  padding: 8px 10%;
+  border: solid 1px black;
+}
+
+.part {
+  font-weight: bold;
+  @include scale(font-size, 24px);
+  display: inline;
+  @include scale(padding, 0px 48px);
+}
+
+.flex-box {
+  display: flex;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.miningObj {
+  @include scale(width, 200px);
+  @include scale(height, 200px);
+  @include scale(font-size, 24px);
+  @include scale(margin, 24px);
+  font-weight: bold;
+  background-color: white;
+}
+
+.miningObj:hover {
+  background-color: whitesmoke;
+  color: crimson;
+}
+
+.category-wrapper {
+  margin: 0 auto;
+  width: 60%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5%;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.category-selected {
+  width: 30%;
+  color: red;
+}
+.category {
+  width: 30%;
+  color: black;
+}
